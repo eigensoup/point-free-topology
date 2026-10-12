@@ -64,13 +64,15 @@
   }
 }
 
-/* Mathematical glyphs set in the display serif's italic — warmer than a
-   monospace face, and it keeps the page from reading as a terminal. */
-@utility glyph {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-feature-settings: "ss01";
-  letter-spacing: 0.01em;
+@layer components {
+  /* Mathematical glyphs set in the display serif's italic — warmer than a
+     monospace face, and it keeps the page from reading as a terminal. */
+  .glyph {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-feature-settings: "ss01";
+    letter-spacing: 0.01em;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

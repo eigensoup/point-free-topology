@@ -1,12 +1,7 @@
-import { Card, Eyebrow, Heading, Section, TextLink } from "@/components/ui";
+import { Card, Section, TextLink } from "@/components/ui";
 import { Blob } from "@/components/decor";
 
-type Entry = {
-  title: string;
-  author: string;
-  detail: string;
-  href?: string;
-};
+type Entry = { title: string; author: string; detail: string; href?: string };
 
 const books: Entry[] = [
   {
@@ -59,51 +54,47 @@ function EntryList({ items }: { items: Entry[] }) {
     <ul className="space-y-7">
       {items.map((item) => (
         <li key={item.title}>
-          <h4 className="font-display text-lg font-semibold leading-snug text-ink-deep">
+          <h3 className="font-display text-lg font-semibold leading-snug text-ink-deep">
             {item.href ? (
-              <TextLink href={item.href} external className="text-ink-deep decoration-iris/50 hover:decoration-iris">
+              <TextLink
+                href={item.href}
+                external
+                className="inline-block py-1.5 text-ink-deep decoration-iris/50 hover:decoration-iris"
+              >
                 {item.title}
               </TextLink>
             ) : (
               item.title
             )}
-          </h4>
+          </h3>
           <p className="mt-1 text-sm italic text-pine">{item.author}</p>
-          <p className="mt-2 text-sm leading-relaxed text-ink-soft">{item.detail}</p>
+          <p className="mt-2 text-[0.95rem] leading-relaxed text-ink-soft">{item.detail}</p>
         </li>
       ))}
     </ul>
   );
 }
 
-export function Reading() {
+export function ReadingShelf() {
   return (
     <Section
-      id="reading"
-      tone="iris"
-      padding="roomy"
+      tone="paper"
+      padding="normal"
       bleed={<Blob tone="mint" shape={0} className="-right-28 top-10 h-96 w-96" />}
     >
-      <div className="max-w-2xl">
-        <Eyebrow tone="pine">Where to go next</Eyebrow>
-        <Heading as="h2" size="xl" underline underlineTone="iris" className="mt-6 text-ink-deep">
-          A short shelf
-        </Heading>
-      </div>
-
-      <div className="mt-14 grid gap-6 lg:grid-cols-2">
-        <Card tone="paper" tilt="left">
-          <h3 className="font-display text-sm font-semibold uppercase tracking-[0.18em] text-pine">
+      <div className="grid gap-5 sm:gap-6 lg:grid-cols-2">
+        <Card tone="mint" tilt="left">
+          <h2 className="font-display text-sm font-semibold uppercase tracking-[0.18em] text-pine">
             Books
-          </h3>
+          </h2>
           <div className="mt-7">
             <EntryList items={books} />
           </div>
         </Card>
-        <Card tone="paper" tilt="right">
-          <h3 className="font-display text-sm font-semibold uppercase tracking-[0.18em] text-pine">
-            Essays & sources
-          </h3>
+        <Card tone="iris" tilt="right">
+          <h2 className="font-display text-sm font-semibold uppercase tracking-[0.18em] text-pine">
+            Essays &amp; sources
+          </h2>
           <div className="mt-7">
             <EntryList items={essays} />
           </div>

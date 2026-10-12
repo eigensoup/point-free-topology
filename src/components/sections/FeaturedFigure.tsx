@@ -84,7 +84,7 @@ export function FeaturedFigure() {
           </div>
 
           <div className="mt-11">
-            <ActionLink href="/banaschewski" tone="pine">
+            <ActionLink href="/people/banaschewski" tone="pine">
               The full profile
             </ActionLink>
           </div>

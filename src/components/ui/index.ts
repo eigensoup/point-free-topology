@@ -6,3 +6,4 @@ export { Card } from "./Card";
 export { Pill } from "./Pill";
 export { ActionLink, TextLink } from "./ActionLink";
 export { Quote } from "./Quote";
+export { RichText } from "./RichText";

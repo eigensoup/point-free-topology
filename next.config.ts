@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {
@@ -11,6 +10,13 @@ const nextConfig: NextConfig = {
         as: "*.css",
       },
     },
+  },
+  async redirects() {
+    return [
+      // The profile used to live at the top level, before /people/<slug>.
+      { source: "/banaschewski", destination: "/people/banaschewski", permanent: true },
+      { source: "/lineage", destination: "/people", permanent: true },
+    ];
   },
 };
 
