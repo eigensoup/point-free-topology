@@ -129,5 +129,24 @@ than pick one. There are no invented quotations anywhere on the site.
 ## Deployment
 
 Vercel, on the `pointfreetopology.com` domain. Vercel detects Next.js
-automatically and honours the `packageManager` field, so no build configuration
-is required. Set the production branch to `main`.
+automatically, so no build configuration is required. Set the production branch
+to `main`.
+
+### Local pnpm is 12; Vercel's is 10. That is fine — leave it alone.
+
+Vercel does **not** read the `packageManager` field unless Corepack is enabled,
+and Corepack is off by default. It picks the pnpm version from
+`pnpm-lock.yaml`'s `lockfileVersion` instead. Ours is `9.0`, which Vercel builds
+with pnpm 10.
+
+That combination is verified: a clean clone installed with
+`pnpm@10 install --frozen-lockfile` and built successfully, emitting the full
+40KB stylesheet.
+
+**Do not set `ENABLE_EXPERIMENTAL_COREPACK=1`.** It would make Vercel honour the
+`pnpm@12.11.2` pin, and [Vercel's supported pnpm versions](https://vercel.com/docs/package-managers)
+are 6 through 10 — 12 is not among them. The pin exists for local development,
+where it is the version actually in use.
+
+If you ever need Vercel on the same pnpm as local, the supported route is to
+lower the pin and regenerate the lockfile, not to enable Corepack.
