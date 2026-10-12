@@ -23,6 +23,29 @@ pnpm dev        # http://localhost:3000
 
 Other scripts: `pnpm build`, `pnpm start`, `pnpm lint`.
 
+> **Note:** `next.config.ts` wires Tailwind v4 through the Turbopack loader
+> (`@tailwindcss/turbopack`). There is no `postcss.config`. If you edit that file,
+> keep the `turbopack.rules` block — without it the site builds successfully but
+> ships with no Tailwind CSS at all.
+
+## Routes
+
+The site is an ordered walk, defined once in `src/data/nav.ts`:
+
+| Route | |
+|---|---|
+| `/` | Hero, the core idea, a Banaschewski feature, and an index of the rest |
+| `/ideas` | The six definitions you need to read the literature |
+| `/people` | The lineage — everyone, with links to those who have a page |
+| `/people/[slug]` | A full profile. Statically generated per person |
+| `/reading` | Books, essays and sources |
+
+`/banaschewski` and `/lineage` permanently redirect to their new homes.
+
+Every page ends with prev/next pagination derived from the same `nav.ts` array,
+so adding a stop updates the header, the footer, the home index and the
+pagination at once.
+
 ## Colour palette
 
 Defined once as theme tokens in `src/app/globals.css`, then used everywhere as
@@ -46,36 +69,54 @@ or a size directly — it picks a named variant.
 ```
 src/
 ├── app/
-│   ├── layout.tsx          fonts, metadata, header/footer, grain overlay
-│   ├── globals.css         the whole design system: tokens, base, keyframes
-│   ├── page.tsx            home — composes sections only
-│   └── banaschewski/       the featured profile
+│   ├── layout.tsx            fonts, metadata, header/footer, grain overlay
+│   ├── globals.css           the whole design system: tokens, base, keyframes
+│   ├── page.tsx              home — composes sections only
+│   ├── ideas/ · reading/     one section + pagination each
+│   └── people/
+│       ├── page.tsx          the lineage index
+│       └── [slug]/page.tsx   generic profile, built from data
 ├── components/
-│   ├── ui/                 Container · Section · Heading · Prose · Card
-│   │                       Pill · Eyebrow · ActionLink · TextLink · Quote
-│   ├── decor/              Squiggle · Blob · Grain · Scatter · Mobile · LatticeMark
-│   ├── figures/            Monogram · AdjunctionDrawing
-│   ├── sections/           Hero · Opening · FeaturedFigure · IdeaGrid · Lineage · Reading
-│   └── site/               Header · Footer
-├── data/                   people.ts · ideas.ts — all copy lives here, not in JSX
-└── lib/cn.ts               class-name join
+│   ├── ui/                   Container · Section · Heading · Prose · Card
+│   │                         Pill · Eyebrow · ActionLink · TextLink · Quote · RichText
+│   ├── decor/                Squiggle · Blob · Grain · Scatter · Mobile · LatticeMark
+│   ├── figures/              Monogram · AdjunctionDrawing
+│   ├── sections/             Hero · Opening · FeaturedFigure · IdeaGrid
+│   │                         PeopleIndex · ReadingShelf · TourIndex
+│   └── site/                 Header · Footer · PageHeader · Pagination
+├── data/                     people.ts · ideas.ts · nav.ts — all copy lives here
+└── lib/cn.ts                 class-name join
 ```
 
-**Adding another mathematician** means appending to `src/data/people.ts` and, if
-they deserve their own page, copying `src/app/banaschewski/page.tsx` as a
-template. The section components take their content from `data/`, so no layout
-work is needed for a new entry in the lineage.
+### Adding a mathematician
+
+Append an entry to `people` in `src/data/people.ts`. That alone puts them on
+`/people`. Give the entry a `profile` object and `/people/<slug>` builds itself —
+no new page file, no layout work, and the prev/next pagination picks them up.
+
+Prose fields in `profile` accept `*emphasis*` markers, rendered by `<RichText>`,
+so editorial copy stays in data rather than in JSX.
 
 ### Design notes
 
-- **No monospace.** Mathematical glyphs are set in the display serif's italic via
-  the `glyph` utility, so the page reads as a printed essay rather than a terminal.
+- **No monospace.** Mathematical glyphs use the `.glyph` class — the display
+  serif's italic — so the page reads as a printed essay rather than a terminal.
 - **`Card` tilts** by a fraction of a degree and straightens on hover, so grids
   read as pinned paper.
 - **`Blob`, `Scatter`, `Squiggle` and `Grain`** are the hand-made layer. All are
   `aria-hidden` and all animation is disabled under `prefers-reduced-motion`.
 - **`Monogram`** stands in for a portrait. We set initials with care rather than
   invent a likeness we don't have the rights to.
+
+### Mobile
+
+Verified at 320 / 375 / 390 / 414 / 768px on both orientations of the layout:
+
+- no horizontal scroll at any width
+- every nav and pagination target is at least 44px tall
+- smallest rendered text is 12px (the uppercase eyebrows); body copy is 17px
+- the header collapses to a labelled menu with blurbs, which closes on
+  navigation and traps `Escape`
 
 ## Content accuracy
 

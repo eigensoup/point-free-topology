@@ -1,11 +1,5 @@
-import {
-  FeaturedFigure,
-  Hero,
-  IdeaGrid,
-  Lineage,
-  Opening,
-  Reading,
-} from "@/components/sections";
+import { FeaturedFigure, Hero, Opening, TourIndex } from "@/components/sections";
+import { Pagination } from "@/components/site/Pagination";
 
 export default function Home() {
   return (
@@ -13,9 +7,8 @@ export default function Home() {
       <Hero />
       <Opening />
       <FeaturedFigure />
-      <IdeaGrid />
-      <Lineage />
-      <Reading />
+      <TourIndex />
+      <Pagination href="/" />
     </>
   );
 }

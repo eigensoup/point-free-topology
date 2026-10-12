@@ -48,10 +48,10 @@ export function Hero() {
             </p>
 
             <div className="mt-11 flex flex-wrap items-center gap-4">
-              <ActionLink href="/banaschewski" tone="iris">
+              <ActionLink href="/people/banaschewski" tone="iris">
                 Meet Banaschewski
               </ActionLink>
-              <ActionLink href="/#ideas" tone="ghostLight">
+              <ActionLink href="/ideas" tone="ghostLight">
                 Start with the ideas
               </ActionLink>
             </div>
