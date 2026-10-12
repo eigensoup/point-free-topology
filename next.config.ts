@@ -13,9 +13,12 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      // The profile used to live at the top level, before /people/<slug>.
-      { source: "/banaschewski", destination: "/people/banaschewski", permanent: true },
-      { source: "/lineage", destination: "/people", permanent: true },
+      // The profile used to live at the top level, before /legends/<slug>.
+      { source: "/banaschewski", destination: "/legends/banaschewski", permanent: true },
+      { source: "/lineage", destination: "/legends", permanent: true },
+      // "People" became "Legends".
+      { source: "/people", destination: "/legends", permanent: true },
+      { source: "/people/:slug", destination: "/legends/:slug", permanent: true },
     ];
   },
 };

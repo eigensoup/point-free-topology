@@ -36,13 +36,21 @@ The site is an ordered walk, defined once in `src/data/nav.ts`:
 |---|---|
 | `/` | Hero, the core idea, a Banaschewski feature, and an index of the rest |
 | `/ideas` | The six definitions you need to read the literature |
-| `/people` | The lineage — everyone, with links to those who have a page |
-| `/people/[slug]` | A full profile. Statically generated per person |
+| `/legends` | The lineage — everyone, with links to those who have a page |
+| `/legends/[slug]` | A full profile. Statically generated per legend |
 | `/conferences` | Gatherings, with a live countdown to the next |
 | `/conferences/[slug]` | Full conference detail. Statically generated per conference |
+| `/papers` | The typesetting project's output, and how a paper gets there |
+| `/get-involved` | Send originals, typeset, edit, or support the project |
 | `/reading` | Books, essays and sources |
 
-`/banaschewski` and `/lineage` permanently redirect to their new homes.
+`/people`, `/people/<slug>`, `/banaschewski` and `/lineage` all permanently
+redirect to their current homes.
+
+The header is a single burger dropdown at every width — there are more
+destinations than fit in a row, and one control means one nav to maintain.
+`/reading` carries `header: false` in `nav.ts`, so it stays out of that dropdown
+while keeping its place in the footer and the pagination chain.
 
 Every page ends with prev/next pagination derived from the same `nav.ts` array,
 so adding a stop updates the header, the footer, the home index and the
@@ -75,26 +83,37 @@ src/
 │   ├── globals.css           the whole design system: tokens, base, keyframes
 │   ├── page.tsx              home — composes sections only
 │   ├── ideas/ · reading/     one section + pagination each
-│   └── people/
+│   ├── papers/               the typesetting project's output
+│   ├── get-involved/         the contribution and support page
+│   └── legends/
 │       ├── page.tsx          the lineage index
 │       └── [slug]/page.tsx   generic profile, built from data
 ├── components/
 │   ├── ui/                   Container · Section · Heading · Prose · Card
 │   │                         Pill · Eyebrow · ActionLink · TextLink · Quote · RichText
 │   ├── decor/                Squiggle · Blob · Grain · Scatter · Mobile · LatticeMark
-│   ├── figures/              Monogram · AdjunctionDrawing
+│   ├── figures/              Monogram · AdjunctionDrawing · PhotoFrame
+│   ├── conference/           Countdown · NameGrid
+│   ├── contribute/           SupportPanel · TrackCards · Pipeline
 │   ├── sections/             Hero · Opening · FeaturedFigure · IdeaGrid
-│   │                         PeopleIndex · ReadingShelf · TourIndex
-│   └── site/                 Header · Footer · PageHeader · Pagination
-├── data/                     people.ts · ideas.ts · nav.ts — all copy lives here
+│   │                         LegendsIndex · ReadingShelf · TourIndex · ConferenceBanner
+│   └── site/                 Header · Footer · PageHeader · Pagination · PageSkeleton
+├── data/                     legends · ideas · nav · conferences · papers · contribute
 └── lib/cn.ts                 class-name join
 ```
 
-### Adding a mathematician
+### One value still needs filling in
 
-Append an entry to `people` in `src/data/people.ts`. That alone puts them on
-`/people`. Give the entry a `profile` object and `/people/<slug>` builds itself —
-no new page file, no layout work, and the prev/next pagination picks them up.
+`coffeeUrl` in `src/data/contribute.ts` is `null`. Set it to the real Buy Me a
+Coffee page and the support panel turns into a working button; while it is null
+the panel still renders but says the link is being set up and points at the
+contact address instead. Nothing on the site is ever a guessed URL.
+
+### Adding a legend
+
+Append an entry to `legends` in `src/data/legends.ts`. That alone puts them on
+`/legends`. Give the entry a `profile` object and `/legends/<slug>` builds
+itself — no new page file, no layout work, and the pagination picks them up.
 
 Prose fields in `profile` accept `*emphasis*` markers, rendered by `<RichText>`,
 so editorial copy stays in data rather than in JSX.

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { LatticeMark, Scatter } from "@/components/decor";
 import { Container } from "@/components/ui";
-import { navStops } from "@/data/nav";
+import { allStops } from "@/data/nav";
 
 export function Footer() {
   return (
@@ -26,7 +26,7 @@ export function Footer() {
           </div>
 
           <nav aria-label="Footer" className="flex flex-col sm:items-end">
-            {navStops.map((stop) => (
+            {allStops.map((stop) => (
               <Link
                 key={stop.href}
                 href={stop.href}

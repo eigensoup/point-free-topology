@@ -295,7 +295,7 @@ async function ConferenceDetail({ params }: { params: Promise<{ slug: string }> 
 
       <Pagination
         prev={{
-          href: "/people/banaschewski",
+          href: "/legends/banaschewski",
           label: "Banaschewski",
           blurb: "The life and the mathematics the conference is celebrating.",
         }}

@@ -48,7 +48,7 @@ export function Hero() {
             </p>
 
             <div className="mt-11 flex flex-wrap items-center gap-4">
-              <ActionLink href="/people/banaschewski" tone="iris">
+              <ActionLink href="/legends/banaschewski" tone="iris">
                 Meet Banaschewski
               </ActionLink>
               <ActionLink href="/ideas" tone="ghostLight">
@@ -59,10 +59,6 @@ export function Hero() {
 
           <div className="relative mx-auto w-full max-w-sm text-mint-wash lg:max-w-none">
             <Mobile className="w-full drop-shadow-[0_20px_45px_rgba(0,0,0,0.3)]" />
-            <p className="mt-6 text-center text-sm italic leading-relaxed text-mint-wash/55">
-              A frame, hung like a mobile. Every node an open; every edge a
-              containment; no point anywhere in sight.
-            </p>
           </div>
         </div>
       </Container>

@@ -146,7 +146,12 @@ export const conferences: Conference[] = [
     },
     organisers: [
       { name: "Ana Belén Avilez García", affiliation: "ITAM, Mexico", email: "anabelenavilez@gmail.com" },
-      { name: "Oghenetega Ighedo", affiliation: "Chapman University, USA" },
+      {
+        name: "Oghenetega Ighedo",
+        affiliation: "Chapman University, USA",
+        // The official site prints chapman.com; corrected to chapman.edu.
+        email: "ighedo@chapman.edu",
+      },
       { name: "Joanne Walters-Wayland", affiliation: "CECAT, Chapman University, USA", email: "jwalterswayland@gmail.com" },
     ],
     sourceUrl: "https://sites.google.com/chapman.edu/banaschewski100",

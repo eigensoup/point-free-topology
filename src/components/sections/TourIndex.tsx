@@ -6,11 +6,15 @@ import { navStops } from "@/data/nav";
 /** Keeps the heading honest as stops are added to the tour. */
 const counts = ["No", "One", "Two", "Three", "Four", "Five", "Six", "Seven"];
 
-/** The home page's index of where to go next — one card per tour stop. */
+/**
+ * The home page's index of where to go next.
+ *
+ * One tile per stop, sitting on a single row from `lg` up — hence `short`
+ * rather than `blurb`, which is far too long for a column this narrow.
+ */
 export function TourIndex() {
   const n = navStops.length;
-  const heading =
-    n === 1 ? "One room left" : `${counts[n] ?? n} rooms left`;
+  const heading = n === 1 ? "One room left" : `${counts[n] ?? n} rooms left`;
 
   return (
     <Section
@@ -25,34 +29,35 @@ export function TourIndex() {
         </Heading>
       </div>
 
-      <div className="mt-12 grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <ol className="mt-12 grid grid-cols-2 gap-3.5 sm:grid-cols-3 sm:gap-4 lg:grid-cols-5">
         {navStops.map((stop, i) => (
-          <Link
-            key={stop.href}
-            href={stop.href}
-            className="group flex min-h-44 flex-col rounded-petal border border-ink/10 bg-paper p-7 shadow-lift transition duration-300 ease-soft hover:-translate-y-1.5 hover:border-iris/50 hover:shadow-float active:translate-y-0 active:bg-iris-wash"
-          >
-            <span className="font-display text-sm font-semibold italic text-pine">
-              {String(i + 1).padStart(2, "0")}
-            </span>
-            <h3 className="mt-3 font-display text-2xl font-semibold leading-tight text-ink-deep">
-              {stop.label}
-            </h3>
-            <p className="mt-3 flex-1 text-[0.95rem] leading-relaxed text-ink-soft">
-              {stop.blurb}
-            </p>
-            <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-pine">
-              Open
+          <li key={stop.href} className="contents">
+            <Link
+              href={stop.href}
+              className="group flex min-h-40 flex-col rounded-petal border border-ink/10 bg-paper p-5 shadow-lift transition duration-300 ease-soft hover:-translate-y-1.5 hover:border-iris/50 hover:shadow-float active:translate-y-0 active:bg-iris-wash"
+            >
+              <span className="font-display text-xs font-semibold italic text-pine">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+
+              <h3 className="mt-2.5 font-display text-xl font-semibold leading-[1.15] tracking-[-0.01em] text-ink-deep">
+                {stop.label}
+              </h3>
+
+              <p className="mt-2 text-[0.8rem] leading-snug text-ink-soft">
+                {stop.short}
+              </p>
+
               <span
                 aria-hidden="true"
-                className="transition-transform duration-300 ease-soft group-hover:translate-x-1"
+                className="mt-auto pt-4 text-pine transition-transform duration-300 ease-soft group-hover:translate-x-1"
               >
                 →
               </span>
-            </span>
-          </Link>
+            </Link>
+          </li>
         ))}
-      </div>
+      </ol>
     </Section>
   );
 }
