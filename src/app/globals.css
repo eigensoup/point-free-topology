@@ -1,1 +1,105 @@
 @import "tailwindcss";
+
+@theme {
+  /* Palette: 544E61 · 9D8DF1 · FFFFFF · DAF0EE · 23967F */
+  --color-ink: #544e61;
+  --color-ink-deep: #3b3645;
+  --color-ink-soft: #736c84;
+  --color-ink-mute: #9992a6;
+
+  --color-iris: #9d8df1;
+  --color-iris-soft: #c6bdf7;
+  --color-iris-wash: #f1eefe;
+  --color-iris-deep: #6c58dd;
+
+  --color-mint: #daf0ee;
+  --color-mint-deep: #aadfd9;
+  --color-mint-wash: #f1fbfa;
+
+  --color-pine: #23967f;
+  --color-pine-deep: #19705f;
+  --color-pine-soft: #5fbda9;
+
+  /* Warm paper, so nothing on the page is pure clinical white */
+  --color-paper: #fffdfb;
+
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-sans: var(--font-karla), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-petal: 2rem;
+  --radius-pebble: 1.25rem;
+
+  --shadow-lift: 0 18px 40px -24px rgb(84 78 97 / 0.45);
+  --shadow-float: 0 28px 60px -30px rgb(84 78 97 / 0.5);
+
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink-deep);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: var(--color-iris-soft);
+    color: var(--color-ink-deep);
+  }
+
+  :focus-visible {
+    outline: 2.5px solid var(--color-iris-deep);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+/* Mathematical glyphs set in the display serif's italic — warmer than a
+   monospace face, and it keeps the page from reading as a terminal. */
+@utility glyph {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-feature-settings: "ss01";
+  letter-spacing: 0.01em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes pf-drift {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(2deg);
+  }
+}
+
+@keyframes pf-sway {
+  0%,
+  100% {
+    transform: rotate(-1.5deg);
+  }
+  50% {
+    transform: rotate(1.5deg);
+  }
+}
