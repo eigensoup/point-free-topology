@@ -1,4 +1,4 @@
-import { ActionLink, Card, Eyebrow, Heading, Pill, Prose, Section } from "@/components/ui";
+import { ActionLink, Card, Heading, Pill, Prose, Section } from "@/components/ui";
 import { Blob, Squiggle } from "@/components/decor";
 import { Monogram } from "@/components/figures/Monogram";
 
@@ -29,12 +29,7 @@ export function FeaturedFigure() {
         </>
       }
     >
-      <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <Eyebrow tone="pine">The first room in the gallery</Eyebrow>
-        <Pill tone="pine">1926 — 2022</Pill>
-      </div>
-
-      <div className="mt-10 grid gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <div className="grid gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
         <div className="mx-auto w-full max-w-xs lg:mx-0 lg:max-w-none">
           <Monogram
             initials="BB"
@@ -48,7 +43,11 @@ export function FeaturedFigure() {
             <br />
             <span className="italic text-pine">Banaschewski</span>
           </Heading>
-          <Squiggle tone="iris" variant={2} className="mt-5 h-4 w-56 max-w-full" />
+
+          <div className="mt-5 flex flex-wrap items-center gap-5">
+            <Squiggle tone="iris" variant={2} className="h-4 w-40 shrink-0" />
+            <Pill tone="pine">1926 — 2022</Pill>
+          </div>
 
           <Prose size="lead" className="mt-9 text-ink">
             <p>
@@ -67,28 +66,32 @@ export function FeaturedFigure() {
             </p>
           </Prose>
 
-          <div className="mt-10 grid gap-4 sm:grid-cols-3">
-            {contributions.map((c, i) => (
-              <Card
-                key={c.title}
-                tone="paper"
-                tilt={i === 1 ? "left" : "right"}
-                className="p-6 sm:p-6"
-              >
-                <h3 className="font-display text-lg font-semibold leading-snug text-ink-deep">
-                  {c.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-ink-soft">{c.body}</p>
-              </Card>
-            ))}
-          </div>
-
-          <div className="mt-11">
+          <div className="mt-10">
             <ActionLink href="/people/banaschewski" tone="pine">
               The full profile
             </ActionLink>
           </div>
         </div>
+      </div>
+
+      {/* Three contributions, given the full width of the section rather than
+          the right-hand column — wide and short instead of narrow and tall. */}
+      <div className="mt-16 grid grid-cols-1 gap-5 sm:gap-6 lg:grid-cols-3">
+        {contributions.map((c, i) => (
+          <Card
+            key={c.title}
+            tone="paper"
+            tilt={i === 1 ? "left" : "right"}
+            className="flex flex-col items-center justify-center px-7 py-7 text-center sm:px-8"
+          >
+            <h3 className="font-display text-xl font-semibold leading-snug text-ink-deep">
+              {c.title}
+            </h3>
+            <p className="mt-3 max-w-prose text-[0.95rem] leading-relaxed text-ink-soft">
+              {c.body}
+            </p>
+          </Card>
+        ))}
       </div>
     </Section>
   );
