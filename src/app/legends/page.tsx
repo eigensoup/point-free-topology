@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PeopleIndex } from "@/components/sections";
+import { LegendsIndex } from "@/components/sections";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Pagination } from "@/components/site/Pagination";
 
@@ -19,8 +19,8 @@ export default function PeoplePage() {
         seed={11}
         lede="Pointfree topology was assembled slowly, by a small and unusually generous community, across seventy years and several continents. Names in green have a page of their own."
       />
-      <PeopleIndex />
-      <Pagination href="/people" />
+      <LegendsIndex />
+      <Pagination href="/legends" />
     </>
   );
 }

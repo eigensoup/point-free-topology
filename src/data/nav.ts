@@ -5,11 +5,16 @@ export type TourStop = {
   /** Fuller title for pagination cards and the home index. */
   title: string;
   blurb: string;
+  /** A few words, for tight layouts like the home index. */
+  short: string;
+  /** Omit from the header nav, but keep in the footer, home index and
+   *  pagination. Used to stop the header growing without limit. */
+  header?: boolean;
 };
 
 /**
- * The site as an ordered walk. Single source of truth for the header nav, the
- * footer nav, the home index and the prev/next pagination — add a stop here and
+ * The site as an ordered walk. Single source of truth for the header, the
+ * footer, the home index and the prev/next pagination — add a stop here and
  * every one of them picks it up.
  */
 export const tour: TourStop[] = [
@@ -17,21 +22,24 @@ export const tour: TourStop[] = [
     href: "/",
     label: "Home",
     title: "Topology without points",
+    short: "Throw away the points.",
     blurb: "Where the whole idea starts: throw away the points, keep the opens.",
   },
   {
     href: "/ideas",
-    label: "The ideas",
+    label: "Ideas",
     title: "Six words, and you can read the literature",
     blurb:
       "Frames, locales, sublocales, the Ω ⊣ pt adjunction, compactification, and proof without choice.",
+    short: "The six words you need.",
   },
   {
-    href: "/people",
-    label: "The people",
+    href: "/legends",
+    label: "Legends",
     title: "Nobody does this alone",
     blurb:
       "From Stone and Ehresmann to Isbell, Banaschewski, Johnstone, Pultr and Picado.",
+    short: "Who built it, and how.",
   },
   {
     href: "/conferences",
@@ -39,17 +47,41 @@ export const tour: TourStop[] = [
     title: "Where everyone turns up",
     blurb:
       "Banaschewski 100 — a centennial conference in Orange, California, January 2027.",
+    short: "Banaschewski 100, January 2027.",
+  },
+  {
+    href: "/papers",
+    label: "Papers",
+    title: "The papers, typeset and published",
+    blurb:
+      "Work by the legends, retypeset from the originals and released here and on arXiv.",
+    short: "Retypeset from the originals.",
+  },
+  {
+    href: "/get-involved",
+    label: "Get Involved",
+    title: "Get involved",
+    blurb:
+      "Send originals, typeset a paper, edit a draft, or buy the project a coffee.",
+    short: "Send, typeset, edit, donate.",
   },
   {
     href: "/reading",
     label: "Reading",
     title: "A short shelf",
+    short: "Where to read it properly.",
     blurb: "The books, essays and sources to go to next.",
+    header: false,
   },
 ];
 
-/** Every stop except home — what the nav menus list. */
-export const navStops = tour.filter((stop) => stop.href !== "/");
+/** What the header nav lists. */
+export const navStops = tour.filter(
+  (stop) => stop.href !== "/" && stop.header !== false,
+);
+
+/** Every destination, for the footer and the home index. */
+export const allStops = tour.filter((stop) => stop.href !== "/");
 
 /** The stop before and after a route, for prev/next pagination. */
 export function neighbours(href: string): {

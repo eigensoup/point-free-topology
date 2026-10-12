@@ -18,19 +18,19 @@ import { Blob, Scatter, Squiggle } from "@/components/decor";
 import { Monogram } from "@/components/figures/Monogram";
 import { Pagination } from "@/components/site/Pagination";
 import { PageSkeleton } from "@/components/site/PageSkeleton";
-import { getPerson, personNeighbours, profiledPeople } from "@/data/people";
+import { getLegend, legendNeighbours, profiledLegends } from "@/data/legends";
 
 /** Every profiled person becomes a static page at build time. */
 
 export function generateStaticParams() {
-  return profiledPeople.map((p) => ({ slug: p.slug }));
+  return profiledLegends.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({
   params,
-}: PageProps<"/people/[slug]">): Promise<Metadata> {
+}: PageProps<"/legends/[slug]">): Promise<Metadata> {
   const { slug } = await params;
-  const person = getPerson(slug);
+  const person = getLegend(slug);
   if (!person?.profile) return {};
   return {
     title: person.name,
@@ -42,21 +42,21 @@ export async function generateMetadata({
  * `cacheComponents` treats `params` as dynamic data, so reading it has to sit
  * under a Suspense boundary. The shell prerenders; the profile streams in.
  */
-export default function PersonPage({ params }: PageProps<"/people/[slug]">) {
+export default function LegendPage({ params }: PageProps<"/legends/[slug]">) {
   return (
     <Suspense fallback={<PageSkeleton />}>
-      <PersonProfile params={params} />
+      <LegendProfile params={params} />
     </Suspense>
   );
 }
 
-async function PersonProfile({ params }: { params: Promise<{ slug: string }> }) {
+async function LegendProfile({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const person = getPerson(slug);
+  const person = getLegend(slug);
   if (!person?.profile) notFound();
 
   const p = person.profile;
-  const { prev, next } = personNeighbours(slug);
+  const { prev, next } = legendNeighbours(slug);
 
   return (
     <>
@@ -196,8 +196,8 @@ async function PersonProfile({ params }: { params: Promise<{ slug: string }> }) 
           {p.closing.body}
         </p>
         <div className="mt-9 flex flex-wrap justify-center gap-3.5">
-          <ActionLink href="/people" tone="pine">
-            All of the lineage
+          <ActionLink href="/legends" tone="pine">
+            All of the legends
           </ActionLink>
           <ActionLink href={p.closing.linkHref} tone="ghost" external>
             {p.closing.linkLabel}
@@ -208,12 +208,12 @@ async function PersonProfile({ params }: { params: Promise<{ slug: string }> }) 
       <Pagination
         prev={
           prev
-            ? { href: `/people/${prev.slug}`, label: prev.short, blurb: prev.note }
-            : { href: "/people", label: "The people", blurb: "Back to the full lineage." }
+            ? { href: `/legends/${prev.slug}`, label: prev.short, blurb: prev.note }
+            : { href: "/legends", label: "The legends", blurb: "Back to the full lineage." }
         }
         next={
           next
-            ? { href: `/people/${next.slug}`, label: next.short, blurb: next.note }
+            ? { href: `/legends/${next.slug}`, label: next.short, blurb: next.note }
             : { href: "/reading", label: "Reading", blurb: "The books, essays and sources to go to next." }
         }
       />

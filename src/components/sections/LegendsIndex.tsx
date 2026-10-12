@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { Pill, Section } from "@/components/ui";
 import { Blob } from "@/components/decor";
-import { people } from "@/data/people";
+import { legends } from "@/data/legends";
 import { cn } from "@/lib/cn";
 
-/** The lineage. Entries with a profile become links to /people/<slug>;
+/** The lineage. Entries with a profile become links to /legends/<slug>;
  *  the rest render as plain cards until someone writes them a page. */
-export function PeopleIndex() {
+export function LegendsIndex() {
   return (
     <Section
       tone="paper"
@@ -14,7 +14,7 @@ export function PeopleIndex() {
       bleed={<Blob tone="iris" shape={2} className="-right-28 top-1/4 h-96 w-96" />}
     >
       <ol className="grid gap-5 sm:gap-6 lg:grid-cols-2">
-        {people.map((person) => {
+        {legends.map((person) => {
           const linked = Boolean(person.profile);
           const body = (
             <>
@@ -42,7 +42,7 @@ export function PeopleIndex() {
             <li key={person.slug}>
               {linked ? (
                 <Link
-                  href={`/people/${person.slug}`}
+                  href={`/legends/${person.slug}`}
                   className="group flex h-full flex-col rounded-petal border border-pine/25 bg-mint p-6 shadow-lift transition duration-300 ease-soft hover:-translate-y-1 hover:shadow-float active:translate-y-0 sm:p-7"
                 >
                   {body}

@@ -26,7 +26,7 @@ export type Profile = {
   closing: { heading: string; body: string; linkLabel: string; linkHref: string };
 };
 
-export type Person = {
+export type Legend = {
   slug: string;
   name: string;
   /** Surname alone — used in nav, pagination and tight mobile layouts. */
@@ -44,9 +44,9 @@ export type Person = {
  *
  * To add someone: append an entry here. The lineage index, the header nav and
  * the prev/next pagination all read from this array. Give them a `profile` and
- * /people/<slug> builds itself — no new page file required.
+ * /legends/<slug> builds itself — no new page file required.
  */
-export const people: Person[] = [
+export const legends: Legend[] = [
   {
     slug: "stone",
     name: "Marshall H. Stone",
@@ -201,18 +201,18 @@ export const people: Person[] = [
 ];
 
 /** Only the people who have a page of their own. */
-export const profiledPeople = people.filter((p) => p.profile);
+export const profiledLegends = legends.filter((p) => p.profile);
 
-export function getPerson(slug: string): Person | undefined {
-  return people.find((p) => p.slug === slug);
+export function getLegend(slug: string): Legend | undefined {
+  return legends.find((p) => p.slug === slug);
 }
 
 /** Prev/next within the profiled people, so person pages paginate between
  *  each other as more are added. */
-export function personNeighbours(slug: string) {
-  const i = profiledPeople.findIndex((p) => p.slug === slug);
+export function legendNeighbours(slug: string) {
+  const i = profiledLegends.findIndex((p) => p.slug === slug);
   return {
-    prev: i > 0 ? profiledPeople[i - 1] : null,
-    next: i > -1 && i < profiledPeople.length - 1 ? profiledPeople[i + 1] : null,
+    prev: i > 0 ? profiledLegends[i - 1] : null,
+    next: i > -1 && i < profiledLegends.length - 1 ? profiledLegends[i + 1] : null,
   };
 }
