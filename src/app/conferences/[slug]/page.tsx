@@ -122,15 +122,14 @@ async function ConferenceDetail({ params }: { params: Promise<{ slug: string }> 
       <Section tone="paper" padding="normal" width="wide">
         <Eyebrow tone="pine">Opening night</Eyebrow>
         <Heading as="h2" size="lg" className="mt-6 text-ink-deep">
-          A documentary premiere
+          <em className="font-display italic">{conf.documentary.title}</em>
         </Heading>
         <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_0.85fr] lg:gap-14">
           <Prose className="text-ink-soft">
             <p>
-              The independent filmmaker{" "}
-              <em>{conf.documentary.maker}</em> has made a film about
-              Banaschewski&rsquo;s life and influence. It debuts on{" "}
-              {conf.documentary.when}.
+              The independent filmmaker <em>{conf.documentary.maker}</em> has made
+              a film about Banaschewski&rsquo;s life and influence. It premieres
+              on {conf.documentary.when}.
             </p>
             <p className="text-ink-mute">{conf.documentary.note}</p>
           </Prose>

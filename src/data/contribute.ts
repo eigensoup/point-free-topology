@@ -10,6 +10,26 @@ export const coffeeUrl: string | null = "https://buymeacoffee.com/pointfreetopol
 /** Everything is coordinated through one inbox. */
 export const contactEmail = "jwalterswayland@gmail.com";
 
+/**
+ * What the support actually pays for. Kept here rather than in the component
+ * so the ask can be reworded without touching layout — and so the same words
+ * can be mirrored on the Buy Me a Coffee page itself.
+ */
+export const support = {
+  heading: "Buy the project a coffee",
+  body: [
+    "Every paper here is recovered the same way. A copy is tracked down in an archive or a filing cabinet, scanned, checked to confirm what it is, typeset from scratch, read back against the original, and only then published. It is slow, unglamorous work, and most of it is done by volunteers.",
+    "Support also goes to *What Is the Point?*, George Csicsery's documentary on the life and influence of Bernhard Banaschewski, premiering at the centennial conference in January 2027.",
+  ],
+  /** The concrete costs, so the ask is specific rather than vague. */
+  funds: [
+    "Scanning and retrieving copies from archives",
+    "Hosting the typeset papers and keeping them online",
+    "Finishing and screening the documentary",
+  ],
+  cta: "Buy me a coffee",
+};
+
 export type Track = {
   id: string;
   title: string;

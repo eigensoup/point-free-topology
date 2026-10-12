@@ -1,5 +1,6 @@
 import { cn } from "@/lib/cn";
-import { coffeeUrl, contactEmail } from "@/data/contribute";
+import { RichText } from "@/components/ui";
+import { coffeeUrl, contactEmail, support } from "@/data/contribute";
 
 function CoffeeCup({ className }: { className?: string }) {
   return (
@@ -42,23 +43,27 @@ export function SupportPanel({ className }: { className?: string }) {
     >
       <div
         aria-hidden="true"
-        className="absolute -right-16 -top-20 h-56 w-56 rounded-full bg-iris/25 blur-2xl"
+        className="absolute -right-20 -top-24 h-64 w-64 rounded-full bg-iris/25 blur-2xl"
       />
 
-      <div className="relative flex flex-col items-start gap-7 sm:flex-row sm:items-center sm:gap-9">
-        <CoffeeCup className="h-16 w-16 shrink-0 text-iris-deep sm:h-20 sm:w-20" />
+      <div className="relative grid gap-9 lg:grid-cols-[1.35fr_0.65fr] lg:gap-14">
+        <div>
+          <div className="flex items-start gap-5 sm:gap-6">
+            <CoffeeCup className="h-14 w-14 shrink-0 text-iris-deep sm:h-16 sm:w-16" />
+            <h2 className="font-display text-2xl font-semibold leading-tight text-ink-deep sm:text-3xl">
+              {support.heading}
+            </h2>
+          </div>
 
-        <div className="flex-1">
-          <h2 className="font-display text-2xl font-semibold leading-tight text-ink-deep sm:text-3xl">
-            Buy the project a coffee
-          </h2>
-          <p className="mt-3 max-w-xl leading-[1.7] text-ink-soft">
-            Scanning, typesetting and hosting cost time and a little money. If
-            you would rather give a few pounds than a few hours, this is the way
-            to do it — and it is just as useful.
-          </p>
+          <div className="mt-6 space-y-4 leading-[1.7] text-ink-soft">
+            {support.body.map((para, i) => (
+              <p key={i}>
+                <RichText>{para}</RichText>
+              </p>
+            ))}
+          </div>
 
-          <div className="mt-6">
+          <div className="mt-8">
             {coffeeUrl ? (
               <a
                 href={coffeeUrl}
@@ -66,7 +71,7 @@ export function SupportPanel({ className }: { className?: string }) {
                 rel="noreferrer"
                 className="group inline-flex items-center gap-2.5 rounded-full bg-iris px-7 py-3.5 text-sm font-semibold text-ink-deep transition duration-300 ease-soft hover:-translate-y-0.5 hover:bg-iris-soft"
               >
-                Buy me a coffee
+                {support.cta}
                 <span
                   aria-hidden="true"
                   className="transition-transform duration-300 ease-soft group-hover:translate-x-1"
@@ -92,6 +97,20 @@ export function SupportPanel({ className }: { className?: string }) {
               </div>
             )}
           </div>
+        </div>
+
+        <div className="rounded-pebble border border-iris/25 bg-paper/70 p-6">
+          <h3 className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-pine">
+            Where it goes
+          </h3>
+          <ul className="mt-4 space-y-3.5">
+            {support.funds.map((item) => (
+              <li key={item} className="flex gap-3 text-sm leading-relaxed text-ink-soft">
+                <span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-iris" />
+                {item}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>

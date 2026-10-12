@@ -88,7 +88,9 @@ export const conferences: Conference[] = [
       paymentNote: "A payment option is to be added to the official site.",
     },
     documentary: {
-      title: "A documentary on Banaschewski's life and influence",
+      // Title per the project organisers; the public conference site announces
+      // the film without naming it, so this is the one place to correct it.
+      title: "What Is the Point?",
       maker: "George Csicsery",
       when: "Monday 11 January, during the evening reception",
       note: "Venue still to be confirmed.",
