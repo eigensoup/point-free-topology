@@ -102,12 +102,13 @@ src/
 └── lib/cn.ts                 class-name join
 ```
 
-### One value still needs filling in
+### Supporting the project
 
-`coffeeUrl` in `src/data/contribute.ts` is `null`. Set it to the real Buy Me a
-Coffee page and the support panel turns into a working button; while it is null
-the panel still renders but says the link is being set up and points at the
-contact address instead. Nothing on the site is ever a guessed URL.
+The support panel on `/get-involved` points at
+[buymeacoffee.com/pointfreetopology](https://buymeacoffee.com/pointfreetopology),
+set as `coffeeUrl` in `src/data/contribute.ts`. If that constant is ever `null`,
+the panel degrades to an honest "being set up" state pointing at the contact
+address rather than rendering a dead button.
 
 ### Adding a legend
 
