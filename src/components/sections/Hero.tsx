@@ -44,7 +44,8 @@ export function Hero() {
               <span className="font-display italic text-iris-soft">
                 Bernhard Banaschewski
               </span>
-              , who spent sixty-seven years at one desk making it true.
+              , who spent sixty-seven years at one desk (and around the world)
+              exploring and perfecting the ideas.
             </p>
 
             <div className="mt-11 flex flex-wrap items-center gap-4">
