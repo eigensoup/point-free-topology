@@ -1,12 +1,11 @@
 /**
  * Where to send things, and how to help.
  *
- * `coffeeUrl` is the one value that still needs filling in. Set it to the real
- * Buy Me a Coffee page and the support panel turns into a working button; while
- * it is null the panel stays, says the link is being set up, and points at the
- * same email. Nothing here is ever a guessed URL.
+ * If `coffeeUrl` is ever set back to null, the support panel degrades to an
+ * honest "being set up" state pointing at the contact address, rather than
+ * rendering a dead button.
  */
-export const coffeeUrl: string | null = null;
+export const coffeeUrl: string | null = "https://buymeacoffee.com/pointfreetopology";
 
 /** Everything is coordinated through one inbox. */
 export const contactEmail = "jwalterswayland@gmail.com";
