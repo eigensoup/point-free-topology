@@ -3,8 +3,15 @@ import { Eyebrow, Heading, Section } from "@/components/ui";
 import { Blob } from "@/components/decor";
 import { navStops } from "@/data/nav";
 
+/** Keeps the heading honest as stops are added to the tour. */
+const counts = ["No", "One", "Two", "Three", "Four", "Five", "Six", "Seven"];
+
 /** The home page's index of where to go next — one card per tour stop. */
 export function TourIndex() {
+  const n = navStops.length;
+  const heading =
+    n === 1 ? "One room left" : `${counts[n] ?? n} rooms left`;
+
   return (
     <Section
       tone="paper"
@@ -14,11 +21,11 @@ export function TourIndex() {
       <div className="max-w-2xl">
         <Eyebrow tone="iris">Keep going</Eyebrow>
         <Heading as="h2" size="lg" underline underlineTone="pine" className="mt-6 text-ink-deep">
-          Three rooms left
+          {heading}
         </Heading>
       </div>
 
-      <div className="mt-12 grid gap-5 sm:gap-6 lg:grid-cols-3">
+      <div className="mt-12 grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {navStops.map((stop, i) => (
           <Link
             key={stop.href}

@@ -38,6 +38,8 @@ The site is an ordered walk, defined once in `src/data/nav.ts`:
 | `/ideas` | The six definitions you need to read the literature |
 | `/people` | The lineage — everyone, with links to those who have a page |
 | `/people/[slug]` | A full profile. Statically generated per person |
+| `/conferences` | Gatherings, with a live countdown to the next |
+| `/conferences/[slug]` | Full conference detail. Statically generated per conference |
 | `/reading` | Books, essays and sources |
 
 `/banaschewski` and `/lineage` permanently redirect to their new homes.
@@ -96,6 +98,38 @@ no new page file, no layout work, and the prev/next pagination picks them up.
 
 Prose fields in `profile` accept `*emphasis*` markers, rendered by `<RichText>`,
 so editorial copy stays in data rather than in JSX.
+
+### Adding a conference
+
+Append an entry to `conferences` in `src/data/conferences.ts` and
+`/conferences/<slug>` builds itself. The landing-page banner shows whichever
+conference starts latest, via `featuredConference()`.
+
+### Dropping in the real photographs
+
+Every image on the conference page is a `<PhotoFrame>` stand-in that names the
+file it is holding a place for. To replace one:
+
+1. Put the file in `public/conferences/`
+2. Swap the `<PhotoFrame …/>` for `next/image`, reusing the frame's `label` as
+   the `alt` text
+
+Currently expected: `banaschewski-portrait.png`, `documentary-still.png`,
+`beckman-hall.png`, `keck-center.png`.
+
+### Two Next.js rules this project has to follow
+
+`next.config.ts` sets `cacheComponents: true`, which has two consequences worth
+knowing before editing a page:
+
+- **Never read the current time while rendering.** `new Date()` or `Date.now()`
+  in a server component fails the production build. All clock reading lives in
+  `<Countdown>`, which is a client component.
+- **Reading `params` needs a Suspense boundary.** Both dynamic routes split into
+  a thin default export that renders `<Suspense>` around an inner `async`
+  component which awaits `params`. Without it the route throws *"Next.js
+  encountered URL data during prerendering"* at runtime, while still building
+  successfully.
 
 ### Design notes
 

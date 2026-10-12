@@ -34,6 +34,13 @@ export const tour: TourStop[] = [
       "From Stone and Ehresmann to Isbell, Banaschewski, Johnstone, Pultr and Picado.",
   },
   {
+    href: "/conferences",
+    label: "Conferences",
+    title: "Where everyone turns up",
+    blurb:
+      "Banaschewski 100 — a centennial conference in Orange, California, January 2027.",
+  },
+  {
     href: "/reading",
     label: "Reading",
     title: "A short shelf",
