@@ -5,3 +5,4 @@ export { IdeaGrid } from "./IdeaGrid";
 export { PeopleIndex } from "./PeopleIndex";
 export { ReadingShelf } from "./ReadingShelf";
 export { TourIndex } from "./TourIndex";
+export { ConferenceBanner } from "./ConferenceBanner";

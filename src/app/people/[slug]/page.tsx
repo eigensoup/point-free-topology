@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import {
   ActionLink,
@@ -16,9 +17,11 @@ import {
 import { Blob, Scatter, Squiggle } from "@/components/decor";
 import { Monogram } from "@/components/figures/Monogram";
 import { Pagination } from "@/components/site/Pagination";
+import { PageSkeleton } from "@/components/site/PageSkeleton";
 import { getPerson, personNeighbours, profiledPeople } from "@/data/people";
 
 /** Every profiled person becomes a static page at build time. */
+
 export function generateStaticParams() {
   return profiledPeople.map((p) => ({ slug: p.slug }));
 }
@@ -35,7 +38,19 @@ export async function generateMetadata({
   };
 }
 
-export default async function PersonPage({ params }: PageProps<"/people/[slug]">) {
+/**
+ * `cacheComponents` treats `params` as dynamic data, so reading it has to sit
+ * under a Suspense boundary. The shell prerenders; the profile streams in.
+ */
+export default function PersonPage({ params }: PageProps<"/people/[slug]">) {
+  return (
+    <Suspense fallback={<PageSkeleton />}>
+      <PersonProfile params={params} />
+    </Suspense>
+  );
+}
+
+async function PersonProfile({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const person = getPerson(slug);
   if (!person?.profile) notFound();
