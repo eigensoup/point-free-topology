@@ -1,3 +1,5 @@
+import { banaschewskiPhotos, type Photo } from "./photos";
+
 export type Milestone = { year: string; what: string };
 
 export type Work = {
@@ -11,6 +13,10 @@ export type Work = {
  *  markers, rendered by <RichText>, so copy stays in data rather than JSX. */
 export type Profile = {
   initials: string;
+  /** Replaces the initials monogram in the masthead when present. */
+  portrait?: Photo;
+  /** Shown as an "In pictures" section after the work. */
+  gallery?: Photo[];
   dates: string;
   /** Short credential chips under the name. */
   credentials: string[];
@@ -88,6 +94,15 @@ export const legends: Legend[] = [
     note: "Over two hundred papers that made the pointfree theory complete: compactification, real-valued functions, rings, and proofs that need no choice.",
     profile: {
       initials: "BB",
+      portrait: banaschewskiPhotos.portrait,
+      gallery: [
+        banaschewskiPhotos.seminar,
+        banaschewskiPhotos.toast,
+        banaschewskiPhotos.colleagues,
+        banaschewskiPhotos.group,
+        banaschewskiPhotos.closeup,
+        banaschewskiPhotos.painting,
+      ],
       dates: "22 March 1926 — 31 October 2022",
       credentials: ["McKay Professor Emeritus, McMaster", "200+ papers"],
       lede: "He arrived in Hamilton, Ontario in 1955 and stayed for sixty-seven years. In that time he took pointfree topology from a handful of suggestive definitions to a theory that could stand beside the classical one — and in places replace it.",

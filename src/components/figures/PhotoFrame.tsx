@@ -17,8 +17,8 @@ const tones = {
  * A stand-in for a photograph we do not have yet.
  *
  * To replace one: drop the file in /public/conferences/, then swap this element
- * for next/image with the same `alt` text —
- *   <Image src="/conferences/beckman-hall.png" alt={...} width={...} height={...} />
+ * for <Photo> (figures/Photo.tsx), carrying the label over as `alt` —
+ *   <Photo photo={{ src: "/conferences/beckman-hall.png", alt: ... }} sizes="..." />
  * The `file` prop names the image this frame is holding a place for.
  */
 export function PhotoFrame({

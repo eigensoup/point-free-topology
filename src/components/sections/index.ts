@@ -6,3 +6,4 @@ export { LegendsIndex } from "./LegendsIndex";
 export { ReadingShelf } from "./ReadingShelf";
 export { TourIndex } from "./TourIndex";
 export { ConferenceBanner } from "./ConferenceBanner";
+export { FeaturedLegend } from "./FeaturedLegend";

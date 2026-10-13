@@ -16,6 +16,7 @@ import {
 } from "@/components/ui";
 import { Blob, Scatter, Squiggle } from "@/components/decor";
 import { Monogram } from "@/components/figures/Monogram";
+import { Photo, PhotoGallery } from "@/components/figures/Photo";
 import { Pagination } from "@/components/site/Pagination";
 import { PageSkeleton } from "@/components/site/PageSkeleton";
 import { getLegend, legendNeighbours, profiledLegends } from "@/data/legends";
@@ -72,7 +73,17 @@ async function LegendProfile({ params }: { params: Promise<{ slug: string }> }) 
         <Container className="relative py-14 sm:py-20 lg:py-24">
           <div className="grid items-center gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
             <div className="mx-auto w-full max-w-[13rem] sm:max-w-[15rem] lg:mx-0 lg:max-w-none">
-              <Monogram initials={p.initials} />
+              {p.portrait ? (
+                <Photo
+                  photo={p.portrait}
+                  ratio="portrait"
+                  sizes="(min-width: 1024px) 30vw, 15rem"
+                  preload
+                  dark
+                />
+              ) : (
+                <Monogram initials={p.initials} />
+              )}
             </div>
 
             <div>
@@ -119,6 +130,16 @@ async function LegendProfile({ params }: { params: Promise<{ slug: string }> }) 
 
         <Quote className="mt-14 text-ink">{p.pullQuote}</Quote>
       </Section>
+
+      {p.gallery?.length ? (
+        <Section tone="iris" padding="normal" width="wide">
+          <Eyebrow tone="iris">In pictures</Eyebrow>
+          <Heading as="h2" size="lg" className="mt-6 text-ink-deep">
+            At the board, and away from it
+          </Heading>
+          <PhotoGallery photos={p.gallery} className="mt-12" />
+        </Section>
+      ) : null}
 
       <Section
         tone="mint"
