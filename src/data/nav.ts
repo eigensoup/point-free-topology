@@ -42,6 +42,14 @@ export const tour: TourStop[] = [
     short: "Who built it, and how.",
   },
   {
+    href: "/other-legends",
+    label: "Other Legends",
+    title: "Other legends and related ideas",
+    blurb:
+      "Henriksen and rings of continuous functions, Martínez and algebraic frames — the subjects next door.",
+    short: "The subjects next door.",
+  },
+  {
     href: "/conferences",
     label: "Conferences",
     title: "Where everyone turns up",

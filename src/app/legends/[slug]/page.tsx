@@ -19,7 +19,7 @@ import { Monogram } from "@/components/figures/Monogram";
 import { Photo, PhotoGallery } from "@/components/figures/Photo";
 import { Pagination } from "@/components/site/Pagination";
 import { PageSkeleton } from "@/components/site/PageSkeleton";
-import { getLegend, legendNeighbours, profiledLegends } from "@/data/legends";
+import { getLegend, isOtherLegend, legendNeighbours, profiledLegends } from "@/data/legends";
 
 /** Every profiled person becomes a static page at build time. */
 
@@ -58,6 +58,9 @@ async function LegendProfile({ params }: { params: Promise<{ slug: string }> }) 
 
   const p = person.profile;
   const { prev, next } = legendNeighbours(slug);
+  const home = isOtherLegend(slug)
+    ? { href: "/other-legends", label: "Other legends and related ideas", blurb: "Back to the neighbouring subjects." }
+    : { href: "/legends", label: "All of the legends", blurb: "Back to the full lineage." };
 
   return (
     <>
@@ -87,7 +90,7 @@ async function LegendProfile({ params }: { params: Promise<{ slug: string }> }) 
             </div>
 
             <div>
-              <Eyebrow tone="mint">A life in one department</Eyebrow>
+              <Eyebrow tone="mint">{p.eyebrow ?? "A life in one department"}</Eyebrow>
               <Heading as="h1" size="hero" className="mt-5 text-mint-wash">
                 {person.name.split(" ").slice(0, -1).join(" ")}
                 <br />
@@ -217,8 +220,8 @@ async function LegendProfile({ params }: { params: Promise<{ slug: string }> }) 
           {p.closing.body}
         </p>
         <div className="mt-9 flex flex-wrap justify-center gap-3.5">
-          <ActionLink href="/legends" tone="pine">
-            All of the legends
+          <ActionLink href={home.href} tone="pine">
+            {home.label}
           </ActionLink>
           <ActionLink href={p.closing.linkHref} tone="ghost" external>
             {p.closing.linkLabel}
