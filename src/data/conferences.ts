@@ -1,3 +1,5 @@
+import { banaschewskiPhotos, type Photo } from "./photos";
+
 export type Named = { name: string; affiliation: string };
 
 export type Conference = {
@@ -7,6 +9,10 @@ export type Conference = {
   subtitle: string;
   honouree: string;
   honoureeDates: string;
+  /** Masthead photograph of the honouree. */
+  portrait?: Photo;
+  /** Shown as a remembrance gallery after the opening-night section. */
+  gallery?: Photo[];
   /** ISO 8601 with offset. Orange, California is UTC-8 in January. */
   startsAt: string;
   endsAt: string;
@@ -54,9 +60,9 @@ export type Conference = {
  * Conferences in the pointfree world.
  *
  * To add one: append an entry here and /conferences/<slug> builds itself.
- * Photographs are deliberately absent — every image on a conference page is a
- * <PhotoFrame> stand-in until a real file is dropped into /public/conferences/
- * and the component is swapped for next/image.
+ * Photographs of the honouree live in `portrait` and `gallery`. Every other
+ * image on a conference page is a <PhotoFrame> stand-in until a real file is
+ * dropped into /public/conferences/ and swapped for <Photo>.
  */
 export const conferences: Conference[] = [
   {
@@ -65,6 +71,15 @@ export const conferences: Conference[] = [
     subtitle: "A centennial conference",
     honouree: "Bernhard Banaschewski",
     honoureeDates: "22 March 1926 — 31 October 2022",
+    portrait: banaschewskiPhotos.toast,
+    gallery: [
+      banaschewskiPhotos.seminar,
+      banaschewskiPhotos.group,
+      banaschewskiPhotos.colleagues,
+      banaschewskiPhotos.portrait,
+      banaschewskiPhotos.closeup,
+      banaschewskiPhotos.painting,
+    ],
     startsAt: "2027-01-11T09:00:00-08:00",
     endsAt: "2027-01-14T17:00:00-08:00",
     dateLabel: "11–14 January 2027",

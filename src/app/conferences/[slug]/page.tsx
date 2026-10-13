@@ -14,6 +14,7 @@ import {
 } from "@/components/ui";
 import { Blob, Scatter, Squiggle } from "@/components/decor";
 import { PhotoFrame } from "@/components/figures/PhotoFrame";
+import { Photo, PhotoGallery } from "@/components/figures/Photo";
 import { Countdown } from "@/components/conference/Countdown";
 import { NameGrid } from "@/components/conference/NameGrid";
 import { Pagination } from "@/components/site/Pagination";
@@ -105,12 +106,22 @@ async function ConferenceDetail({ params }: { params: Promise<{ slug: string }> 
             </div>
 
             <div className="mx-auto w-full max-w-xs lg:max-w-none">
-              <PhotoFrame
-                label="Portrait of Bernhard Banaschewski"
-                file="banaschewski-portrait.png"
-                ratio="portrait"
-                tone="ink"
-              />
+              {conf.portrait ? (
+                <Photo
+                  photo={conf.portrait}
+                  ratio="portrait"
+                  sizes="(min-width: 1024px) 35vw, 20rem"
+                  preload
+                  dark
+                  showCaption={false}
+                />
+              ) : (
+                <PhotoFrame
+                  label={`Portrait of ${conf.honouree}`}
+                  ratio="portrait"
+                  tone="ink"
+                />
+              )}
               <p className="mt-4 text-center text-sm italic text-mint-wash/55">
                 In memoriam · {conf.honoureeDates}
               </p>
@@ -141,6 +152,21 @@ async function ConferenceDetail({ params }: { params: Promise<{ slug: string }> 
           />
         </div>
       </Section>
+
+      {conf.gallery?.length ? (
+        <Section tone="iris" padding="normal" width="wide">
+          <Eyebrow tone="iris">Remembering</Eyebrow>
+          <Heading as="h2" size="lg" className="mt-6 text-ink-deep">
+            {conf.honouree.split(" ")[0]}, in pictures
+          </Heading>
+          <PhotoGallery photos={conf.gallery} className="mt-12" />
+          <div className="mt-12">
+            <ActionLink href="/legends/banaschewski" tone="pine">
+              Read about his life and work
+            </ActionLink>
+          </div>
+        </Section>
+      ) : null}
 
       <Section
         tone="mint"
