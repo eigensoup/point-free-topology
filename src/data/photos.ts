@@ -16,14 +16,12 @@ export const banaschewskiPhotos = {
   portrait: {
     src: "/banaschewski/portrait-chair.jpg",
     alt: "Bernhard Banaschewski in a dark suit, seated in a carved wooden chair against a stone wall",
-    credit: "Courtesy of UC Santa Cruz",
     focus: "50% 20%",
   },
   toast: {
     src: "/banaschewski/toast.jpg",
     alt: "Bernhard Banaschewski standing with a glass of white wine raised, a candle in the foreground",
     caption: "Raising a glass.",
-    credit: "Courtesy of UC Santa Cruz",
     focus: "50% 25%",
   },
   seminar: {
@@ -36,7 +34,6 @@ export const banaschewskiPhotos = {
     src: "/banaschewski/with-colleagues.jpg",
     alt: "Bernhard Banaschewski, glass in hand, standing between two younger colleagues",
     caption: "With colleagues.",
-    credit: "Courtesy of UC Santa Cruz",
     focus: "50% 35%",
   },
   group: {
@@ -49,7 +46,6 @@ export const banaschewskiPhotos = {
     src: "/banaschewski/black-shirt.jpg",
     alt: "Close-up of Bernhard Banaschewski in a black shirt, mid-conversation",
     caption: "Mid-conversation.",
-    credit: "Courtesy of UC Santa Cruz",
     focus: "40% 30%",
   },
   painting: {
