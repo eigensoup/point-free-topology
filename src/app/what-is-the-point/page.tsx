@@ -20,15 +20,18 @@ export default function FilmPage() {
     <>
       <section className="relative overflow-hidden bg-ink text-mint-wash">
         <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-          <Image
-            src={filmStills.portrait.src}
-            alt=""
-            fill
-            preload
-            sizes="100vw"
-            className="object-cover opacity-55 grayscale"
-            style={{ objectPosition: filmStills.portrait.focus }}
-          />
+          {/* Shifted right so the face sits clear of the title. */}
+          <div className="absolute inset-0 translate-x-[20%]">
+            <Image
+              src={filmStills.portrait.src}
+              alt=""
+              fill
+              preload
+              sizes="100vw"
+              className="object-cover opacity-55 grayscale"
+              style={{ objectPosition: filmStills.portrait.focus }}
+            />
+          </div>
           <div className="absolute inset-0 bg-linear-to-r from-ink via-ink/85 to-ink/10" />
           <div className="absolute inset-0 bg-linear-to-t from-ink via-transparent to-transparent" />
           <Blob tone="iris" shape={1} drift className="-left-24 -top-10 h-80 w-80" />
