@@ -20,6 +20,7 @@ import { NameGrid } from "@/components/conference/NameGrid";
 import { Pagination } from "@/components/site/Pagination";
 import { PageSkeleton } from "@/components/site/PageSkeleton";
 import { conferences, getConference } from "@/data/conferences";
+import { filmStills } from "@/data/film";
 
 
 export function generateStaticParams() {
@@ -143,12 +144,14 @@ async function ConferenceDetail({ params }: { params: Promise<{ slug: string }> 
               on {conf.documentary.when}.
             </p>
             <p className="text-ink-mute">{conf.documentary.note}</p>
+            <p>
+              <TextLink href="/what-is-the-point">Watch it on its own page</TextLink>.
+            </p>
           </Prose>
-          <PhotoFrame
-            label="Still from the documentary, or a photograph from the reception"
-            file="documentary-still.png"
+          <Photo
+            photo={filmStills.blackboard}
             ratio="wide"
-            tone="iris"
+            sizes="(min-width: 1024px) 40vw, 100vw"
           />
         </div>
       </Section>
