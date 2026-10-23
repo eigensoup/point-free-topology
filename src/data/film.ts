@@ -24,7 +24,7 @@ export type Chapter = {
  * `original/`, and the first, stream-copied join at `what-is-the-point.mp4`.
  */
 export const filmSrc =
-  "https://storage.googleapis.com/pointfreetopology-film/what-is-the-point-v3.mp4";
+  "https://storage.googleapis.com/pointfreetopology-film/what-is-the-point-v4.mp4";
 
 export const film = {
   title: "What Is the Point?",
