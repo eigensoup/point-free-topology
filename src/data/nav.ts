@@ -50,6 +50,14 @@ export const tour: TourStop[] = [
     short: "The subjects next door.",
   },
   {
+    href: "/what-is-the-point",
+    label: "The Film",
+    title: "What Is the Point?",
+    blurb:
+      "A film about Bernhard Banaschewski's life and influence, in seventeen chapters, watched as one continuous movie.",
+    short: "Banaschewski, on film.",
+  },
+  {
     href: "/conferences",
     label: "Conferences",
     title: "Where everyone turns up",
