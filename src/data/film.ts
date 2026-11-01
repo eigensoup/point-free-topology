@@ -20,11 +20,13 @@ export type Chapter = {
  * the rest open on their own title card, except the chapters named for a
  * place, which open instead on a globe turning to it, its label left on
  * screen after the globe fades. Each chapter's closing card is trimmed so
- * they run straight on. The unedited chapters are kept in the bucket under
- * `original/`, and the first, stream-copied join at `what-is-the-point.mp4`.
+ * they run straight on. The Iran chapter cuts away to photographs from his
+ * visit; some photographs are digitally restored. The unedited chapters are
+ * kept in the bucket under `original/`, and the first, stream-copied join at
+ * `what-is-the-point.mp4`.
  */
 export const filmSrc =
-  "https://storage.googleapis.com/pointfreetopology-film/what-is-the-point-v4.mp4";
+  "https://storage.googleapis.com/pointfreetopology-film/what-is-the-point-v5.mp4";
 
 export const film = {
   title: "What Is the Point?",
