@@ -37,7 +37,7 @@ export const film = {
   institution: "Chapman University",
 };
 
-/** Offsets measured from the chapter files when they were joined. */
+/** Offsets measured from the chapter files when they were joined, re-measured against v15 (whose Iran chapter is 9.51s longer). */
 export const chapters: Chapter[] = [
   { n: 1, title: "Background", start: 0, duration: 259.97, poster: "/film/posters/01.jpg" },
   { n: 2, title: "Coping with the Nazis", start: 259.97, duration: 530.2, poster: "/film/posters/02.jpg" },
@@ -53,9 +53,9 @@ export const chapters: Chapter[] = [
   { n: 12, title: "South Africa", start: 3961.75, duration: 439.48, poster: "/film/posters/12.jpg" },
   { n: 13, title: "Prague", start: 4401.23, duration: 307.14, poster: "/film/posters/13.jpg" },
   { n: 14, title: "Collaborators", start: 4708.37, duration: 259.55, poster: "/film/posters/14.jpg" },
-  { n: 15, title: "Iran", start: 4967.92, duration: 66.07, poster: "/film/posters/15.jpg" },
-  { n: 16, title: "Lifestyle", start: 5033.99, duration: 193.28, poster: "/film/posters/16.jpg" },
-  { n: 17, title: "Axiom of Choice", start: 5227.26, duration: 342.36, poster: "/film/posters/17.jpg" },
+  { n: 15, title: "Iran", start: 4967.92, duration: 75.58, poster: "/film/posters/15.jpg" },
+  { n: 16, title: "Lifestyle", start: 5043.5, duration: 193.28, poster: "/film/posters/16.jpg" },
+  { n: 17, title: "Axiom of Choice", start: 5236.77, duration: 342.36, poster: "/film/posters/17.jpg" },
 ];
 
 export const filmRuntime = chapters.at(-1)!.start + chapters.at(-1)!.duration;
