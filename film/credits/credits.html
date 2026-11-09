@@ -1,0 +1,139 @@
+<!doctype html>
+<!--
+  Credit cards for "What Is the Point?". Each entry in CARDS is one card,
+  rendered to a transparent 1920x1080 PNG by render.sh (credits.html#<id>)
+  and faded in and out over black. To add a credit, add a card here and
+  list its id in render.sh's OPENING or ENDING.
+-->
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,600&display=block" rel="stylesheet">
+<style>
+  :root {
+    --fg: #e8e4df;          /* Krv fg-primary */
+    --dim: #9a958e;
+    --vermilion: #c4301b;   /* Krv accent */
+    /* Pointfree Topology palette (src/app/globals.css) */
+    --iris: #9d8df1; --mint: #daf0ee; --mint-deep: #aadfd9; --pine: #23967f; --pine-soft: #5fbda9;
+  }
+  html, body { margin: 0; width: 1920px; height: 1080px; background: transparent; }
+  body {
+    display: flex; align-items: center; justify-content: center;
+    color: var(--fg);
+    /* The film's own titles are set in a geometric sans. */
+    font-family: Futura, "Avenir Next", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .card { display: flex; flex-direction: column; align-items: center; text-align: center; }
+
+  /* Krv Labs lockup, as on krv-labs.com: vermilion K, mono uppercase name. */
+  .mark { width: 168px; height: 168px; color: var(--vermilion); }
+  .krv {
+    margin-top: 46px;
+    font-family: "JetBrains Mono", "SF Mono", Menlo, monospace;
+    font-weight: 500; font-size: 46px; letter-spacing: 0.18em;
+    text-transform: uppercase; padding-left: 0.18em; /* balance trailing tracking */
+  }
+  .presents { margin-top: 30px; font-size: 30px; letter-spacing: 0.32em; text-transform: lowercase; color: var(--dim); padding-left: 0.32em; }
+
+  /* Chapman's logo, lifted from the film's own Chapman Life Stories card. */
+  .chapman { width: 600px; image-rendering: auto; }
+
+  /* Zala Films, redrawn from its website header. */
+  .zala { position: relative; display: flex; flex-direction: column; align-items: center; padding-top: 70px; }
+  .zala svg.poppy { position: absolute; top: -150px; left: 50%; transform: translateX(-12%); width: 380px; height: 380px; opacity: 0.2; }
+  .zala .words { position: relative; display: flex; align-items: baseline; gap: 26px; font-family: "Times New Roman", Times, serif; }
+  .zala .z { font-size: 168px; letter-spacing: 0.04em; transform: scaleX(0.9); transform-origin: right; line-height: 0.8; }
+  .zala .f { font-size: 92px; line-height: 0.8; }
+  .zala .rule { position: relative; width: 640px; height: 2px; background: var(--fg); opacity: 0.85; margin-top: 26px; }
+  .zala .rule::before, .zala .rule::after { content: ""; position: absolute; top: -4px; width: 10px; height: 10px; border-radius: 50%; background: #b3261e; }
+  .zala .rule::before { left: -5px; } .zala .rule::after { right: -5px; }
+
+  .label { font-size: 24px; letter-spacing: 0.34em; text-transform: uppercase; color: var(--dim); padding-left: 0.34em; margin-bottom: 44px; }
+  .big { font-size: 64px; font-weight: 500; letter-spacing: 0.02em; }
+  .sub { margin-top: 18px; font-size: 30px; color: var(--dim); }
+  .rule-v { width: 56px; height: 2px; background: var(--vermilion); margin: 46px 0; }
+  .lines { display: flex; flex-direction: column; gap: 22px; font-size: 36px; }
+  .lines .d { color: var(--dim); font-size: 30px; }
+  .photos { gap: 18px; font-size: 32px; }
+
+  .voices { display: grid; grid-template-columns: auto auto; column-gap: 56px; row-gap: 26px; text-align: left; }
+  .voices .n { font-size: 38px; text-align: right; }
+  .voices .a { font-size: 28px; color: var(--dim); align-self: center; }
+
+  /* Pointfree Topology, as in the site header: lattice mark + Fraunces wordmark. */
+  .pft { display: flex; align-items: center; gap: 30px; }
+  .pft svg { width: 104px; height: 104px; overflow: visible; }
+  .pft .w { font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 72px; letter-spacing: -0.01em; color: var(--mint); }
+  .pft .w i { color: var(--pine-soft); }
+  .copy { margin-top: 48px; font-size: 28px; color: var(--dim); letter-spacing: 0.04em; }
+</style>
+</head>
+<body>
+<script>
+const K = `<svg class="mark" viewBox="0 0 500 500" aria-hidden="true"><g transform="matrix(2.7434917,0,0,2.7434917,-37.861676,-40.016888)" fill="currentColor" fill-rule="evenodd">
+  <path d="m 46.137654,106.32606 86.394976,-86.481927 56.48777,0.05938 -83.8588,84.858387 84.11445,85.53421 -55.3251,-0.17457 z"/>
+  <path d="m 26.444164,20.69278 41.461606,0.118739 0.08046,59.918852 -25.73253,25.745539 -0.0012,63.54146 34.0524,-20.96039 0.10566,42.81608 -50.533959,-0.32117 z"/></g></svg>`;
+
+// The faint pencil poppy behind the Zala Films name.
+const POPPY = `<svg class="poppy" viewBox="0 0 200 200" fill="none" stroke="#cfcac4" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M64 92 C 46 70, 52 34, 82 30 C 92 22, 110 20, 120 30 C 150 28, 162 64, 140 90"/>
+  <path d="M64 92 C 70 112, 90 122, 102 120 C 118 122, 136 110, 140 90"/>
+  <path d="M82 30 C 86 52, 84 72, 76 96 M120 30 C 116 54, 120 76, 128 98 M100 24 C 98 50, 100 82, 102 118"/>
+  <path d="M70 60 C 86 66, 116 66, 134 58" opacity="0.6"/>
+  <ellipse cx="101" cy="78" rx="12" ry="7"/>
+  <path d="M102 120 C 102 146, 96 172, 84 198"/>
+</svg>`;
+
+const LATTICE = `<svg viewBox="0 0 24 24" aria-hidden="true">
+  <g stroke="var(--mint)" stroke-width="1.3" stroke-linecap="round" opacity="0.6">
+    <line x1="12" y1="4" x2="5" y2="12"/><line x1="12" y1="4" x2="19" y2="12"/>
+    <line x1="5" y1="12" x2="12" y2="20"/><line x1="19" y1="12" x2="12" y2="20"/></g>
+  <circle cx="12" cy="4" r="2.6" fill="var(--iris)"/><circle cx="5" cy="12" r="2.1" fill="var(--mint-deep)"/>
+  <circle cx="19" cy="12" r="2.1" fill="var(--pine-soft)"/><circle cx="12" cy="20" r="2.6" fill="var(--pine)"/></svg>`;
+
+const voices = [
+  ["Richard N. Ball", "University of Denver"],
+  ["Christopher Gilmour", "University of Cape Town"],
+  ["Aleš Pultr", "Charles University, Prague"],
+  ["Anneliese Schauerte", "University of Cape Town"],
+  ["Joanne Walters-Wayland", "Chapman University"],
+];
+
+const photos = [
+  "Bernhard Banaschewski’s colleagues and friends",
+  "Marian Oliver",
+  "OJ-JP / Wikimedia Commons, CC BY-SA 4.0",
+  "Andrej Bauer, Photos of Mathematicians, CC BY-SA 2.5",
+  "Forest",
+  "JustSomePics, Peter Cruickshank / Wikimedia Commons, McMaster University, CC BY-SA 3.0",
+];
+
+const CARDS = {
+  // ---- Opening ----
+  "krv-presents": `${K}<div class="krv">Krv Labs</div><div class="presents">presents</div>`,
+  "chapman": `<img class="chapman" src="chapman.png" alt="Chapman University">`,
+  "zala": `<div class="zala">${POPPY}<div class="words"><span class="z">ZALA</span><span class="f">films</span></div><div class="rule"></div></div>`,
+
+  // ---- Ending ----
+  "memoriam": `<div class="label">In memory of</div><div class="big">Bernhard Banaschewski</div>
+    <div class="rule-v"></div><div class="sub">22 March 1926 &mdash; 31 October 2022</div>`,
+  "directed": `<div class="label">Directed by</div><div class="big">George Csicsery</div>`,
+  "appearances": `<div class="label">Appearances by</div>
+    <div class="voices">${voices.map(([n, a]) => `<div class="n">${n}</div><div class="a">${a}</div>`).join("")}</div>`,
+  "thanks": `<div class="label">Special thanks</div><div class="lines">
+    <div>President Daniele Struppa<div class="d">Chapman University</div></div>
+    <div>Prof. Andrew Moshier and CECAT</div></div>`,
+  "photos": `<div class="label">Photo credits</div><div class="lines photos">${photos.map((p) => `<div>${p}</div>`).join("")}</div>`,
+  "krv": `<div class="label">Presented by</div>${K}<div class="krv">Krv Labs</div>`,
+  "copyright": `<div class="pft">${LATTICE}<span class="w">Pointfree<i>Topology</i></span></div>
+    <div class="copy">&copy; 2026 Pointfree Topology</div>`,
+};
+
+const id = location.hash.slice(1) || "krv-presents";
+document.body.innerHTML = `<div class="card">${CARDS[id] ?? `unknown card ${id}`}</div>`;
+</script>
+</body>
+</html>

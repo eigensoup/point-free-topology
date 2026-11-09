@@ -20,13 +20,14 @@ export type Chapter = {
  * the rest open on their own title card, except the chapters named for a
  * place, which open instead on a globe turning to it, its label left on
  * screen after the globe fades. Each chapter's closing card is trimmed so
- * they run straight on. The Iran chapter cuts away to photographs from his
+ * they run straight on. Opening and closing credits are added by
+ * film/credits/render.sh. The Iran chapter cuts away to photographs from his
  * visit; some photographs are digitally restored. The unedited chapters are
  * kept in the bucket under `original/`, and the first, stream-copied join at
  * `what-is-the-point.mp4`.
  */
 export const filmSrc =
-  "https://storage.googleapis.com/pointfreetopology-film/what-is-the-point-v15.mp4";
+  "https://storage.googleapis.com/pointfreetopology-film/what-is-the-point-v22.mp4";
 
 export const film = {
   title: "What Is the Point?",
@@ -37,25 +38,31 @@ export const film = {
   institution: "Chapman University",
 };
 
-/** Offsets measured from the chapter files when they were joined, re-measured against v15 (whose Iran chapter is 9.51s longer). */
+/**
+ * Offsets measured from the chapter files when they were joined, re-measured
+ * against v22 by audio cross-correlation. v22 opens on 18.89s of credit cards
+ * (Krv Labs, Chapman University, Zala Films; counted in chapter 1). Chapter 17
+ * holds Russell's shoes and socks (53s, after "It just is as if God spoke.")
+ * and ends on 52s of credits.
+ */
 export const chapters: Chapter[] = [
-  { n: 1, title: "Background", start: 0, duration: 259.97, poster: "/film/posters/01.jpg" },
-  { n: 2, title: "Coping with the Nazis", start: 259.97, duration: 530.2, poster: "/film/posters/02.jpg" },
-  { n: 3, title: "Bombing of Hamburg", start: 790.16, duration: 544.21, poster: "/film/posters/03.jpg" },
-  { n: 4, title: "Surviving WWII", start: 1334.37, duration: 913.54, poster: "/film/posters/04.jpg" },
-  { n: 5, title: "Understanding Mathematics", start: 2247.91, duration: 280.49, poster: "/film/posters/05.jpg" },
-  { n: 6, title: "Introduction to Topology", start: 2528.4, duration: 146.73, poster: "/film/posters/06.jpg" },
-  { n: 7, title: "Advanced Studies at Hamburg", start: 2675.13, duration: 172.76, poster: "/film/posters/07.jpg" },
-  { n: 8, title: "Thesis", start: 2847.89, duration: 248.67, poster: "/film/posters/08.jpg" },
-  { n: 9, title: "Frames: Point Free Spaces", start: 3096.55, duration: 521.15, poster: "/film/posters/09.jpg" },
-  { n: 10, title: "Visiting Humboldt University", start: 3617.7, duration: 180.47, poster: "/film/posters/10.jpg" },
-  { n: 11, title: "Getting Hired at McMaster University", start: 3798.17, duration: 163.58, poster: "/film/posters/11.jpg" },
-  { n: 12, title: "South Africa", start: 3961.75, duration: 439.48, poster: "/film/posters/12.jpg" },
-  { n: 13, title: "Prague", start: 4401.23, duration: 307.14, poster: "/film/posters/13.jpg" },
-  { n: 14, title: "Collaborators", start: 4708.37, duration: 259.55, poster: "/film/posters/14.jpg" },
-  { n: 15, title: "Iran", start: 4967.92, duration: 75.58, poster: "/film/posters/15.jpg" },
-  { n: 16, title: "Lifestyle", start: 5043.5, duration: 193.28, poster: "/film/posters/16.jpg" },
-  { n: 17, title: "Axiom of Choice", start: 5236.77, duration: 342.36, poster: "/film/posters/17.jpg" },
+  { n: 1, title: "Background", start: 0, duration: 278.89, poster: "/film/posters/01.jpg" },
+  { n: 2, title: "Coping with the Nazis", start: 278.89, duration: 530.21, poster: "/film/posters/02.jpg" },
+  { n: 3, title: "Bombing of Hamburg", start: 809.1, duration: 544.21, poster: "/film/posters/03.jpg" },
+  { n: 4, title: "Surviving WWII", start: 1353.31, duration: 913.58, poster: "/film/posters/04.jpg" },
+  { n: 5, title: "Understanding Mathematics", start: 2266.89, duration: 280.52, poster: "/film/posters/05.jpg" },
+  { n: 6, title: "Introduction to Topology", start: 2547.41, duration: 146.75, poster: "/film/posters/06.jpg" },
+  { n: 7, title: "Advanced Studies at Hamburg", start: 2694.16, duration: 172.76, poster: "/film/posters/07.jpg" },
+  { n: 8, title: "Thesis", start: 2866.92, duration: 248.7, poster: "/film/posters/08.jpg" },
+  { n: 9, title: "Frames: Point Free Spaces", start: 3115.62, duration: 521.18, poster: "/film/posters/09.jpg" },
+  { n: 10, title: "Visiting Humboldt University", start: 3636.8, duration: 180.47, poster: "/film/posters/10.jpg" },
+  { n: 11, title: "Getting Hired at McMaster University", start: 3817.27, duration: 163.59, poster: "/film/posters/11.jpg" },
+  { n: 12, title: "South Africa", start: 3980.86, duration: 439.49, poster: "/film/posters/12.jpg" },
+  { n: 13, title: "Prague", start: 4420.35, duration: 307.15, poster: "/film/posters/13.jpg" },
+  { n: 14, title: "Collaborators", start: 4727.5, duration: 259.59, poster: "/film/posters/14.jpg" },
+  { n: 15, title: "Iran", start: 4987.09, duration: 75.58, poster: "/film/posters/15.jpg" },
+  { n: 16, title: "Lifestyle", start: 5062.67, duration: 193.29, poster: "/film/posters/16.jpg" },
+  { n: 17, title: "Axiom of Choice", start: 5255.96, duration: 470.51, poster: "/film/posters/17.jpg" },
 ];
 
 export const filmRuntime = chapters.at(-1)!.start + chapters.at(-1)!.duration;
