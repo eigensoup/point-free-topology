@@ -14,11 +14,19 @@ LEAD=1.0      # black before the first card of a segment
 TAIL=1.5      # black after the last card of a segment
 
 # A clip cut into the film: Bertrand Russell's shoes and socks, straight after
-# Rick Ball says "It just is as if God spoke." (in a pause, on a frame boundary
-# of the uncredited cut, v20). Leave INSERT_FILE empty to skip.
-INSERT_AT="${INSERT_AT:-5325.739}"
+# Rick Ball says "It just is ... as if God spoke." That line comes in two bursts
+# (5324.1-5325.4 and 5326.1-5327.45 in v20); the cut sits in the 0.2s of silence
+# after "spoke", before "And therefore", on a frame boundary of the uncredited
+# cut (v20). Leave INSERT_FILE empty to skip.
+INSERT_AT="${INSERT_AT:-5327.589}"
 INSERT_FILE="$HOME/Academics/axiom-of-choice/socks-and-shoes/socks-and-shoes.mp4"
 DIP=0.5       # dip to black either side of the insert
+# Under the insert, the film's own intro music (v20 0-22s), lengthened by
+# looping: it repeats almost exactly every 16.7s (18.3s sounds like 1.6s), so
+# these spans are joined with 0.5s crossfades and end on the intro's closing
+# sting. Each span is start-end in seconds of the uncredited film.
+MUSIC=(1.4-18.3 1.6-18.3 1.6-22.0)
+XFADE=0.5
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
 FILM="$1"; OUT="$2"; PREVIEW="${3:-}"
@@ -73,14 +81,21 @@ if [[ -n "$INSERT_FILE" ]]; then
   # Conform the clip to the film (23.976 fps, silent stereo), dipping to black at each end.
   n=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$INSERT_FILE")
   d=$(python3 -c "print(round($n*24000/1001)*1001/24000)")
-  ffmpeg -v error -y -i "$INSERT_FILE" -f lavfi -t "$d" -i anullsrc=r=48000:cl=stereo -filter_complex \
-    "[0:v]fps=$FPS,scale=1920:1080,format=yuv420p,trim=duration=$d,fade=in:d=$DIP,fade=out:st=$(echo "$d - $DIP" | bc -l):d=$DIP[v]" \
-    -map "[v]" -map 1:a -c:v libx264 -crf 16 -preset slow -c:a pcm_s16le "$WORK/insert.mkv"
+  k=${#MUSIC[@]}; m="[1:a]asplit=$k"
+  for ((j = 0; j < k; j++)); do m+="[s$j]"; done; m+=";"
+  for ((j = 0; j < k; j++)); do span="${MUSIC[$j]}"; m+="[s$j]atrim=${span%-*}:${span#*-},asetpts=PTS-STARTPTS[m$j];"; done
+  chain="[m0]"; for ((j = 1; j < k; j++)); do m+="${chain}[m$j]acrossfade=d=$XFADE:c1=qsin:c2=qsin[x$j];"; chain="[x$j]"; done
+  m+="${chain}apad,atrim=duration=$d,afade=in:d=$DIP,afade=out:st=$(echo "$d - 0.4" | bc -l):d=0.4[a]"
+  ffmpeg -v error -y -i "$INSERT_FILE" -t 30 -i "$FILM" -filter_complex \
+    "[0:v]fps=$FPS,scale=1920:1080,format=yuv420p,trim=duration=$d,fade=in:d=$DIP,fade=out:st=$(echo "$d - $DIP" | bc -l):d=$DIP[v];$m" \
+    -map "[v]" -map "[a]" -c:v libx264 -crf 16 -preset slow -c:a pcm_s16le -ac 2 -ar 48000 "$WORK/insert.mkv"
+  cp "$WORK/insert.mkv" "${OUT%.mp4}-insert.mkv"  # for checking the music bed on its own
   # The film is opened twice, cut at INSERT_AT, so nothing has to be buffered across the insert.
-  af=$(echo "$INSERT_AT - 0.3" | bc -l); vf=$(echo "$INSERT_AT - $DIP" | bc -l)
+  # Audio fades are short: the gap after "spoke" is only 0.2s.
+  af=$(echo "$INSERT_AT - 0.08" | bc -l); vf=$(echo "$INSERT_AT - $DIP" | bc -l)
   nice -n 19 ffmpeg -v error -stats -y -threads "$T" -i "$WORK/opening.mkv" -t "$INSERT_AT" -i "$FILM" -i "$WORK/insert.mkv" \
     -ss "$INSERT_AT" -i "$FILM" -i "$WORK/ending.mkv" -filter_complex \
-    "[1:v]fade=out:st=$vf:d=$DIP[f1v];[1:a]afade=out:st=$af:d=0.3[f1a];[3:v]fade=in:d=$DIP[f2v];[3:a]afade=in:d=0.3[f2a];
+    "[1:v]fade=out:st=$vf:d=$DIP[f1v];[1:a]afade=out:st=$af:d=0.08[f1a];[3:v]fade=in:d=$DIP[f2v];[3:a]afade=in:d=0.05[f2a];
      [0:v]setsar=1[v0];[f1v]setsar=1[v1];[2:v]setsar=1[v2];[f2v]setsar=1[v3];[4:v]setsar=1[v4];
      [v0][0:a][v1][f1a][v2][2:a][v3][f2a][v4][4:a]concat=n=5:v=1:a=1[v][a]" \
     -map "[v]" -map "[a]" -c:v libx264 -threads "$T" -crf 19 -preset medium -profile:v high -pix_fmt yuv420p \
